@@ -39,6 +39,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -129,11 +132,8 @@ ul.task-list li input[type="checkbox"] {
       </div>
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./christmas_salad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Christmas Party Salad</span></a>
-  </div>
-</li>
+ <span class="menu-text">christmas_salad.qmd</span>
+  </li>
       </ul>
   </li>
     </ul>
@@ -166,7 +166,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site</p>
+<p>To make sharing easier:</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="toy_site_qr_code.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Link to this Site"><img src="toy_site_qr_code.png" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="Link to this Site"></a></p>
+</figure>
+</div>
+<figcaption>Link to this Site</figcaption>
+</figure>
+</div>
 
 
 
@@ -592,6 +602,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
